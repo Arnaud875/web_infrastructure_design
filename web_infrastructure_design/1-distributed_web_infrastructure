@@ -1,0 +1,72 @@
+Three-Server Web Infrastructure Design
+Overview
+This document details a three-server web infrastructure for www.foobar.com, featuring load balancing and database replication for improved reliability and performance.
+Infrastructure Components
+1. Load Balancer Server (HAProxy)
+
+Purpose: Distributes incoming traffic across web/application servers
+Algorithm: Round Robin
+
+Requests are distributed sequentially to each server
+Simple and fair distribution for similar server capabilities
+Other options include least connections, source IP hash
+
+
+Configuration: Active-Active Setup
+
+All servers actively handle requests simultaneously
+Differs from Active-Passive where backup servers wait idle
+Better resource utilization than Active-Passive
+
+
+
+2. Web/Application Server
+
+Nginx Web Server:
+
+Handles HTTP requests
+Serves static content
+Manages SSL/TLS termination
+
+
+Application Server:
+
+Processes dynamic content
+Executes business logic
+Communicates with databases
+
+
+Application Files:
+
+Contains website codebase
+Configuration files
+Static assets
+
+
+
+3. Database Server
+
+Primary-Replica Setup:
+
+Primary Node (Master):
+
+Handles write operations
+Maintains authoritative dataset
+Replicates changes to replica
+
+
+Replica Node (Slave):
+
+Handles read operations
+Maintains synchronized copy
+Provides read scalability
+Serves as backup
+
+
+
+
+
+Infrastructure Specifics
+Load Balancer Configuration
+
+Round Robin Algorithm:

@@ -1,0 +1,96 @@
+Web Infrastructure Design - Single Server
+Overview
+This document explains a basic web infrastructure for hosting a website (www.foobar.com) on a single server. The design demonstrates how different components work together to serve web content to users.
+Infrastructure Components and Flow
+User Request Flow
+
+When a user wants to access www.foobar.com, their browser first contacts a DNS server
+The DNS server translates www.foobar.com to the IP address 8.8.8.8
+The user's browser then sends an HTTP/HTTPS request to this IP address
+
+Server Components (IP: 8.8.8.8)
+1. Web Server (Nginx)
+
+Acts as the entry point for all user requests
+Handles static content delivery
+Manages SSL/TLS termination
+Routes requests to the application server
+Chosen for its high performance and reliability
+
+2. Application Server
+
+Processes dynamic content
+Executes the application logic
+Handles business rules
+Communicates with the database
+Generates dynamic HTML content
+
+3. Application Files
+
+Contains the website's codebase
+Includes all necessary scripts and assets
+Stores application logic and templates
+Houses configuration files
+
+4. Database (MySQL)
+
+Stores all persistent data
+Manages user information
+Handles data relationships
+Ensures data integrity
+Chosen for its reliability and wide support
+
+Technical Details
+DNS Configuration
+
+Domain: foobar.com
+WWW Record Type: CNAME
+Points to: Server IP (8.8.8.8)
+The CNAME record allows for easier IP changes if needed
+
+Communication Protocols
+
+External: HTTP/HTTPS
+Internal: FastCGI between Nginx and Application Server
+Database: MySQL Protocol
+
+Infrastructure Challenges
+1. Single Point of Failure (SPOF)
+
+The entire infrastructure depends on one server
+Hardware failure would cause complete service outage
+Network issues would make the website inaccessible
+
+2. Maintenance Limitations
+
+Code deployments require server restart
+Updates cause temporary service interruption
+No redundancy during maintenance
+Scheduled maintenance affects user experience
+
+3. Scaling Issues
+
+No ability to handle traffic spikes
+Limited by server's hardware resources
+No load distribution capability
+Potential performance degradation under high load
+
+Recommended Improvements
+Short Term
+
+Implement regular backups
+Set up monitoring systems
+Establish maintenance windows
+Optimize application code
+
+Long Term
+
+Add redundant servers
+Implement load balancing
+Separate database server
+Add caching layer
+Integrate CDN services
+
+Conclusion
+While this single-server setup is suitable for small to medium websites, it has significant limitations for high-traffic or business-critical applications. Understanding these limitations is crucial for planning future scaling and reliability improvements.
+Would you like me to elaborate on any specific aspect of this infrastructure or its potential improvements?
